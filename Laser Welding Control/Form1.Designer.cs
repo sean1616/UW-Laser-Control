@@ -46,6 +46,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.CommandTab = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label_takeControl = new System.Windows.Forms.Label();
             this.textBox_setEnergy = new System.Windows.Forms.TextBox();
             this.textBox_energyCap = new System.Windows.Forms.TextBox();
             this.textBox_LowerEnergy = new System.Windows.Forms.TextBox();
@@ -64,12 +66,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox_scheme = new System.Windows.Forms.ComboBox();
             this.btn_readScheme = new System.Windows.Forms.Button();
-            this.btn_setFeedback_mode_to_energy = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btn_highVolt = new System.Windows.Forms.Button();
-            this.btn_lowVolt = new System.Windows.Forms.Button();
-            this.btn_releaseControl = new System.Windows.Forms.Button();
-            this.btn_getControl = new System.Windows.Forms.Button();
             this.HexModePanel = new System.Windows.Forms.Panel();
             this.rbtnHexMode = new System.Windows.Forms.RadioButton();
             this.rbtnASCIIMode = new System.Windows.Forms.RadioButton();
@@ -77,6 +73,11 @@
             this.comboBoxMachineID = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.COMStatusLabel = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.button_ResetUI = new System.Windows.Forms.Button();
+            this.ceLearningToggle1 = new ToggleButtonExample.CeLearningToggle();
+            this.ceLearningToggle_LaserVoltage = new ToggleButtonExample.CeLearningToggle();
+            this.ceLearningToggle_TakeControl = new ToggleButtonExample.CeLearningToggle();
             this.tabControl1.SuspendLayout();
             this.CommandTab.SuspendLayout();
             this.HexModePanel.SuspendLayout();
@@ -106,7 +107,7 @@
             this.btnConnect.Location = new System.Drawing.Point(346, 58);
             this.btnConnect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(120, 46);
+            this.btnConnect.Size = new System.Drawing.Size(120, 45);
             this.btnConnect.TabIndex = 2;
             this.btnConnect.Text = "連線";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -208,10 +209,10 @@
             // btnDisconnect
             // 
             this.btnDisconnect.Enabled = false;
-            this.btnDisconnect.Location = new System.Drawing.Point(346, 110);
+            this.btnDisconnect.Location = new System.Drawing.Point(346, 120);
             this.btnDisconnect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(120, 44);
+            this.btnDisconnect.Size = new System.Drawing.Size(120, 45);
             this.btnDisconnect.TabIndex = 12;
             this.btnDisconnect.Text = "中斷連線";
             this.btnDisconnect.UseVisualStyleBackColor = true;
@@ -252,6 +253,13 @@
             // 
             // CommandTab
             // 
+            this.CommandTab.Controls.Add(this.button_ResetUI);
+            this.CommandTab.Controls.Add(this.ceLearningToggle1);
+            this.CommandTab.Controls.Add(this.label15);
+            this.CommandTab.Controls.Add(this.ceLearningToggle_LaserVoltage);
+            this.CommandTab.Controls.Add(this.label14);
+            this.CommandTab.Controls.Add(this.label_takeControl);
+            this.CommandTab.Controls.Add(this.ceLearningToggle_TakeControl);
             this.CommandTab.Controls.Add(this.textBox_setEnergy);
             this.CommandTab.Controls.Add(this.textBox_energyCap);
             this.CommandTab.Controls.Add(this.textBox_LowerEnergy);
@@ -270,12 +278,6 @@
             this.CommandTab.Controls.Add(this.label6);
             this.CommandTab.Controls.Add(this.comboBox_scheme);
             this.CommandTab.Controls.Add(this.btn_readScheme);
-            this.CommandTab.Controls.Add(this.btn_setFeedback_mode_to_energy);
-            this.CommandTab.Controls.Add(this.button1);
-            this.CommandTab.Controls.Add(this.btn_highVolt);
-            this.CommandTab.Controls.Add(this.btn_lowVolt);
-            this.CommandTab.Controls.Add(this.btn_releaseControl);
-            this.CommandTab.Controls.Add(this.btn_getControl);
             this.CommandTab.Controls.Add(this.HexModePanel);
             this.CommandTab.Location = new System.Drawing.Point(4, 29);
             this.CommandTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -286,58 +288,77 @@
             this.CommandTab.Text = "命令";
             this.CommandTab.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(24, 71);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(73, 20);
+            this.label14.TabIndex = 50;
+            this.label14.Text = "雷射高壓";
+            // 
+            // label_takeControl
+            // 
+            this.label_takeControl.AutoSize = true;
+            this.label_takeControl.Location = new System.Drawing.Point(24, 22);
+            this.label_takeControl.Name = "label_takeControl";
+            this.label_takeControl.Size = new System.Drawing.Size(57, 20);
+            this.label_takeControl.TabIndex = 49;
+            this.label_takeControl.Text = "控制權";
+            this.label_takeControl.Click += new System.EventHandler(this.label14_Click);
+            // 
             // textBox_setEnergy
             // 
-            this.textBox_setEnergy.Location = new System.Drawing.Point(947, 72);
+            this.textBox_setEnergy.Location = new System.Drawing.Point(943, 79);
             this.textBox_setEnergy.Name = "textBox_setEnergy";
             this.textBox_setEnergy.Size = new System.Drawing.Size(65, 26);
             this.textBox_setEnergy.TabIndex = 47;
             // 
             // textBox_energyCap
             // 
-            this.textBox_energyCap.Location = new System.Drawing.Point(947, 44);
+            this.textBox_energyCap.Location = new System.Drawing.Point(943, 51);
             this.textBox_energyCap.Name = "textBox_energyCap";
             this.textBox_energyCap.Size = new System.Drawing.Size(65, 26);
             this.textBox_energyCap.TabIndex = 46;
             // 
             // textBox_LowerEnergy
             // 
-            this.textBox_LowerEnergy.Location = new System.Drawing.Point(947, 15);
+            this.textBox_LowerEnergy.Location = new System.Drawing.Point(943, 22);
             this.textBox_LowerEnergy.Name = "textBox_LowerEnergy";
             this.textBox_LowerEnergy.Size = new System.Drawing.Size(65, 26);
             this.textBox_LowerEnergy.TabIndex = 45;
             // 
             // textBox_inputPower
             // 
-            this.textBox_inputPower.Location = new System.Drawing.Point(736, 41);
+            this.textBox_inputPower.Location = new System.Drawing.Point(732, 48);
             this.textBox_inputPower.Name = "textBox_inputPower";
             this.textBox_inputPower.Size = new System.Drawing.Size(65, 26);
             this.textBox_inputPower.TabIndex = 44;
             // 
             // textBox_peakPower
             // 
-            this.textBox_peakPower.Location = new System.Drawing.Point(736, 69);
+            this.textBox_peakPower.Location = new System.Drawing.Point(732, 76);
             this.textBox_peakPower.Name = "textBox_peakPower";
             this.textBox_peakPower.Size = new System.Drawing.Size(65, 26);
             this.textBox_peakPower.TabIndex = 43;
             // 
             // textBox_repetition
             // 
-            this.textBox_repetition.Location = new System.Drawing.Point(736, 101);
+            this.textBox_repetition.Location = new System.Drawing.Point(732, 108);
             this.textBox_repetition.Name = "textBox_repetition";
             this.textBox_repetition.Size = new System.Drawing.Size(65, 26);
             this.textBox_repetition.TabIndex = 42;
             // 
             // textBox_firingTimes
             // 
-            this.textBox_firingTimes.Location = new System.Drawing.Point(736, 133);
+            this.textBox_firingTimes.Location = new System.Drawing.Point(732, 140);
             this.textBox_firingTimes.Name = "textBox_firingTimes";
             this.textBox_firingTimes.Size = new System.Drawing.Size(65, 26);
             this.textBox_firingTimes.TabIndex = 41;
             // 
             // textBox_feedBack
             // 
-            this.textBox_feedBack.Location = new System.Drawing.Point(736, 15);
+            this.textBox_feedBack.Location = new System.Drawing.Point(732, 22);
             this.textBox_feedBack.Name = "textBox_feedBack";
             this.textBox_feedBack.Size = new System.Drawing.Size(65, 26);
             this.textBox_feedBack.TabIndex = 40;
@@ -345,7 +366,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(827, 72);
+            this.label13.Location = new System.Drawing.Point(823, 79);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(86, 20);
             this.label13.TabIndex = 31;
@@ -354,7 +375,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(827, 44);
+            this.label12.Location = new System.Drawing.Point(823, 51);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(89, 20);
             this.label12.TabIndex = 30;
@@ -363,7 +384,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(827, 15);
+            this.label11.Location = new System.Drawing.Point(823, 22);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(104, 20);
             this.label11.TabIndex = 29;
@@ -372,7 +393,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(616, 136);
+            this.label10.Location = new System.Drawing.Point(612, 143);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 20);
             this.label10.TabIndex = 28;
@@ -381,7 +402,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(616, 103);
+            this.label9.Location = new System.Drawing.Point(612, 110);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 20);
             this.label9.TabIndex = 27;
@@ -390,7 +411,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(616, 41);
+            this.label8.Location = new System.Drawing.Point(612, 48);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(93, 20);
             this.label8.TabIndex = 26;
@@ -399,7 +420,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(616, 72);
+            this.label7.Location = new System.Drawing.Point(612, 79);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(92, 20);
             this.label7.TabIndex = 25;
@@ -408,7 +429,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(616, 15);
+            this.label6.Location = new System.Drawing.Point(612, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 20);
             this.label6.TabIndex = 24;
@@ -431,7 +452,7 @@
             "10",
             "11",
             "12"});
-            this.comboBox_scheme.Location = new System.Drawing.Point(460, 41);
+            this.comboBox_scheme.Location = new System.Drawing.Point(473, 68);
             this.comboBox_scheme.Name = "comboBox_scheme";
             this.comboBox_scheme.Size = new System.Drawing.Size(119, 28);
             this.comboBox_scheme.TabIndex = 23;
@@ -439,73 +460,13 @@
             // 
             // btn_readScheme
             // 
-            this.btn_readScheme.Location = new System.Drawing.Point(460, 86);
+            this.btn_readScheme.Location = new System.Drawing.Point(473, 22);
             this.btn_readScheme.Name = "btn_readScheme";
-            this.btn_readScheme.Size = new System.Drawing.Size(119, 54);
+            this.btn_readScheme.Size = new System.Drawing.Size(119, 31);
             this.btn_readScheme.TabIndex = 22;
             this.btn_readScheme.Text = "讀取參數";
             this.btn_readScheme.UseVisualStyleBackColor = true;
             this.btn_readScheme.Click += new System.EventHandler(this.btn_readScheme_Click);
-            // 
-            // btn_setFeedback_mode_to_energy
-            // 
-            this.btn_setFeedback_mode_to_energy.Location = new System.Drawing.Point(306, 86);
-            this.btn_setFeedback_mode_to_energy.Name = "btn_setFeedback_mode_to_energy";
-            this.btn_setFeedback_mode_to_energy.Size = new System.Drawing.Size(119, 54);
-            this.btn_setFeedback_mode_to_energy.TabIndex = 21;
-            this.btn_setFeedback_mode_to_energy.Text = "能量";
-            this.btn_setFeedback_mode_to_energy.UseVisualStyleBackColor = true;
-            this.btn_setFeedback_mode_to_energy.Click += new System.EventHandler(this.btn_setFeedback_mode_to_energy_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(306, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 54);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "電流";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btn_setFeedback_mode_to_current_Click);
-            // 
-            // btn_highVolt
-            // 
-            this.btn_highVolt.Location = new System.Drawing.Point(163, 15);
-            this.btn_highVolt.Name = "btn_highVolt";
-            this.btn_highVolt.Size = new System.Drawing.Size(119, 54);
-            this.btn_highVolt.TabIndex = 19;
-            this.btn_highVolt.Text = "開啟高壓";
-            this.btn_highVolt.UseVisualStyleBackColor = true;
-            this.btn_highVolt.Click += new System.EventHandler(this.btn_highVolt_Click);
-            // 
-            // btn_lowVolt
-            // 
-            this.btn_lowVolt.Location = new System.Drawing.Point(163, 86);
-            this.btn_lowVolt.Name = "btn_lowVolt";
-            this.btn_lowVolt.Size = new System.Drawing.Size(119, 54);
-            this.btn_lowVolt.TabIndex = 18;
-            this.btn_lowVolt.Text = "關閉高壓";
-            this.btn_lowVolt.UseVisualStyleBackColor = true;
-            this.btn_lowVolt.Click += new System.EventHandler(this.btn_lowVolt_Click);
-            // 
-            // btn_releaseControl
-            // 
-            this.btn_releaseControl.Location = new System.Drawing.Point(18, 86);
-            this.btn_releaseControl.Name = "btn_releaseControl";
-            this.btn_releaseControl.Size = new System.Drawing.Size(119, 54);
-            this.btn_releaseControl.TabIndex = 17;
-            this.btn_releaseControl.Text = "歸還控制權";
-            this.btn_releaseControl.UseVisualStyleBackColor = true;
-            this.btn_releaseControl.Click += new System.EventHandler(this.btn_releaseControl_Click);
-            // 
-            // btn_getControl
-            // 
-            this.btn_getControl.Location = new System.Drawing.Point(18, 15);
-            this.btn_getControl.Name = "btn_getControl";
-            this.btn_getControl.Size = new System.Drawing.Size(119, 54);
-            this.btn_getControl.TabIndex = 16;
-            this.btn_getControl.Text = "取得控制權";
-            this.btn_getControl.UseVisualStyleBackColor = true;
-            this.btn_getControl.Click += new System.EventHandler(this.btn_getControl_Click);
             // 
             // HexModePanel
             // 
@@ -617,6 +578,79 @@
             this.COMStatusLabel.TabIndex = 16;
             this.COMStatusLabel.Text = "COM Status: Disconnected";
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(24, 120);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(85, 20);
+            this.label15.TabIndex = 52;
+            this.label15.Text = "能量 / 電流";
+            // 
+            // button_ResetUI
+            // 
+            this.button_ResetUI.Location = new System.Drawing.Point(246, 22);
+            this.button_ResetUI.Name = "button_ResetUI";
+            this.button_ResetUI.Size = new System.Drawing.Size(147, 28);
+            this.button_ResetUI.TabIndex = 54;
+            this.button_ResetUI.Text = "介面除錯";
+            this.button_ResetUI.UseVisualStyleBackColor = true;
+            this.button_ResetUI.Click += new System.EventHandler(this.button_ResetUI_Click);
+            // 
+            // ceLearningToggle1
+            // 
+            this.ceLearningToggle1.BorderColor = System.Drawing.Color.LightGray;
+            this.ceLearningToggle1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ceLearningToggle1.ForeColor = System.Drawing.Color.White;
+            this.ceLearningToggle1.IsOn = false;
+            this.ceLearningToggle1.Location = new System.Drawing.Point(125, 117);
+            this.ceLearningToggle1.Name = "ceLearningToggle1";
+            this.ceLearningToggle1.OffColor = System.Drawing.Color.DarkGray;
+            this.ceLearningToggle1.OffText = "OFF";
+            this.ceLearningToggle1.OnColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ceLearningToggle1.OnText = "ON";
+            this.ceLearningToggle1.Size = new System.Drawing.Size(50, 27);
+            this.ceLearningToggle1.TabIndex = 53;
+            this.ceLearningToggle1.Text = "ceLearningToggle_Energy_Current";
+            this.ceLearningToggle1.TextEnabled = true;
+            this.ceLearningToggle1.Click += new System.EventHandler(this.ceLearningToggle1_Click);
+            // 
+            // ceLearningToggle_LaserVoltage
+            // 
+            this.ceLearningToggle_LaserVoltage.BorderColor = System.Drawing.Color.LightGray;
+            this.ceLearningToggle_LaserVoltage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ceLearningToggle_LaserVoltage.ForeColor = System.Drawing.Color.White;
+            this.ceLearningToggle_LaserVoltage.IsOn = false;
+            this.ceLearningToggle_LaserVoltage.Location = new System.Drawing.Point(125, 68);
+            this.ceLearningToggle_LaserVoltage.Name = "ceLearningToggle_LaserVoltage";
+            this.ceLearningToggle_LaserVoltage.OffColor = System.Drawing.Color.DarkGray;
+            this.ceLearningToggle_LaserVoltage.OffText = "OFF";
+            this.ceLearningToggle_LaserVoltage.OnColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ceLearningToggle_LaserVoltage.OnText = "ON";
+            this.ceLearningToggle_LaserVoltage.Size = new System.Drawing.Size(50, 27);
+            this.ceLearningToggle_LaserVoltage.TabIndex = 51;
+            this.ceLearningToggle_LaserVoltage.Text = "ceLearningToggle2";
+            this.ceLearningToggle_LaserVoltage.TextEnabled = true;
+            this.ceLearningToggle_LaserVoltage.Click += new System.EventHandler(this.ceLearningToggle_LaserVoltage_Click);
+            // 
+            // ceLearningToggle_TakeControl
+            // 
+            this.ceLearningToggle_TakeControl.BorderColor = System.Drawing.Color.LightGray;
+            this.ceLearningToggle_TakeControl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ceLearningToggle_TakeControl.ForeColor = System.Drawing.Color.White;
+            this.ceLearningToggle_TakeControl.IsOn = false;
+            this.ceLearningToggle_TakeControl.Location = new System.Drawing.Point(125, 19);
+            this.ceLearningToggle_TakeControl.Name = "ceLearningToggle_TakeControl";
+            this.ceLearningToggle_TakeControl.OffColor = System.Drawing.Color.DarkGray;
+            this.ceLearningToggle_TakeControl.OffText = "OFF";
+            this.ceLearningToggle_TakeControl.OnColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ceLearningToggle_TakeControl.OnText = "ON";
+            this.ceLearningToggle_TakeControl.Size = new System.Drawing.Size(50, 27);
+            this.ceLearningToggle_TakeControl.TabIndex = 48;
+            this.ceLearningToggle_TakeControl.Text = "ceLearningToggle1";
+            this.ceLearningToggle_TakeControl.TextEnabled = true;
+            this.ceLearningToggle_TakeControl.Click += new System.EventHandler(this.ceLearningToggle_TakeControl_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -666,12 +700,6 @@
         private System.Windows.Forms.RadioButton rbtnASCIIMode;
         private System.Windows.Forms.ComboBox comboBoxMachineID;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btn_highVolt;
-        private System.Windows.Forms.Button btn_lowVolt;
-        private System.Windows.Forms.Button btn_releaseControl;
-        private System.Windows.Forms.Button btn_getControl;
-        private System.Windows.Forms.Button btn_setFeedback_mode_to_energy;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox_scheme;
         private System.Windows.Forms.Button btn_readScheme;
         private System.Windows.Forms.TextBox textBox_setEnergy;
@@ -690,6 +718,13 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label_takeControl;
+        private ToggleButtonExample.CeLearningToggle ceLearningToggle_TakeControl;
+        private ToggleButtonExample.CeLearningToggle ceLearningToggle_LaserVoltage;
+        private System.Windows.Forms.Label label14;
+        private ToggleButtonExample.CeLearningToggle ceLearningToggle1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button button_ResetUI;
     }
 }
 

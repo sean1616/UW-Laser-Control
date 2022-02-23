@@ -425,5 +425,55 @@ namespace Laser_Welding_Control
             }
             catch { }
         }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        bool isTakeControl = false;
+        private void ceLearningToggle_TakeControl_Click(object sender, EventArgs e)
+        {
+            isTakeControl = !isTakeControl;
+
+            if (isTakeControl)
+                SendCommand("RRPC");  //Get Control
+            else
+                SendCommand("RMBO");  //Release
+        }
+
+        bool isLaserHighVolt = false;
+        private void ceLearningToggle_LaserVoltage_Click(object sender, EventArgs e)
+        {
+            isLaserHighVolt = !isLaserHighVolt;
+
+            if (isLaserHighVolt)
+                SendCommand("RBSC 06,001");  //Laser High Volt
+            else
+                SendCommand("RBSC 06,000");  //Laser Low Volt
+        }
+
+        bool Energy_or_Current = false;
+        private void ceLearningToggle1_Click(object sender, EventArgs e)
+        {
+            Energy_or_Current = !Energy_or_Current;
+
+            string[] schemeMsg = ReadScheme();
+            if (Energy_or_Current)
+            {
+                schemeMsg[0] = "1";  //Energy mode
+            }
+            else
+            {
+                schemeMsg[0] = "0";  //Current mode
+            }
+            Thread.Sleep(200);
+            setScheme_Feedback(schemeMsg);
+        }
+
+        private void button_ResetUI_Click(object sender, EventArgs e)
+        {
+            SendCommand("RERS");  //Reset UI
+        }
     }
 }
