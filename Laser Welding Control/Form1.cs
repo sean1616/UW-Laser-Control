@@ -349,7 +349,7 @@ namespace Laser_Welding_Control
 
         private void btn_readScheme_Click(object sender, EventArgs e)
         {
-            ReadScheme();
+            ReadScheme("RHSI");
         }
 
         private string[] ReadScheme()
@@ -363,6 +363,7 @@ namespace Laser_Welding_Control
 
             string selected_scheme = comboBox_scheme.SelectedItem.ToString();
 
+            //Ask parameter scheme
             try
             {
                 SendCommand($"RHSI {selected_scheme}");  //ask laser "05" scheme's parameter
@@ -385,6 +386,52 @@ namespace Laser_Welding_Control
                         textBox_LowerEnergy.Text = schemeMsg[5];
                         textBox_energyCap.Text = schemeMsg[6];
                         textBox_setEnergy.Text = schemeMsg[7];
+                        //schemeMsg[0]=
+                    }
+                    else MessageBox.Show("read msg not meet the spec");
+                }
+                else MessageBox.Show("read msg is empty");
+            }
+            catch { }
+
+            return schemeMsg;
+        }
+
+        private string[] ReadScheme(string cmd)
+        {
+            string[] schemeMsg = new string[] { };
+            if (comboBox_scheme.SelectedItem == null)
+            {
+                MessageBox.Show("未選擇參數");
+                return schemeMsg;
+            }
+
+            string selected_scheme = comboBox_scheme.SelectedItem.ToString();
+
+            //Ask parameter scheme
+            try
+            {
+                SendCommand($"{cmd} {selected_scheme}");  //ask laser "05" scheme's parameter
+                Thread.Sleep(200);
+                string readString = ReadMsg();
+
+                if (!string.IsNullOrEmpty(readString))
+                {
+                    //readString = readString.Remove(0, 11);
+
+                    schemeMsg = readString.Split(',');
+
+                    if (schemeMsg.Length == 8)
+                    {
+                        textBoxRead.Text = readString;
+                        textBox_feedBack.Text = schemeMsg[0].Remove(0, 11);
+                        textBox_inputPower.Text = schemeMsg[1];
+                        textBox_peakPower.Text = schemeMsg[2];
+                        textBox_repetition.Text = schemeMsg[3];
+                        textBox_firingTimes.Text = schemeMsg[4];
+                        textBox_LowerEnergy.Text = schemeMsg[5];
+                        textBox_energyCap.Text = schemeMsg[6];
+                        textBox_setEnergy.Text = schemeMsg[7].Remove(4, 3);
                         //schemeMsg[0]=
                     }
                     else MessageBox.Show("read msg not meet the spec");
